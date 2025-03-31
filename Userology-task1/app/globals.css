@@ -1,0 +1,390 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 220 60% 99%;
+    --foreground: 224 71% 4%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 224 71% 4%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 224 71% 4%;
+
+    --primary: 262 83% 58%;
+    --primary-foreground: 210 20% 98%;
+
+    --secondary: 220 14.3% 95.9%;
+    --secondary-foreground: 220.9 39.3% 11%;
+
+    --muted: 220 14.3% 95.9%;
+    --muted-foreground: 220 8.9% 46.1%;
+
+    --accent: 262 83% 58%;
+    --accent-foreground: 220.9 39.3% 11%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 20% 98%;
+
+    --success: 142 69% 58%;
+    --success-foreground: 210 20% 98%;
+
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 262 83% 58%;
+
+    --radius: 1.5rem;
+  }
+
+  .dark {
+    --background: 224 71% 4%;
+    --foreground: 210 20% 98%;
+
+    --card: 224 71% 4%;
+    --card-foreground: 210 20% 98%;
+
+    --popover: 224 71% 4%;
+    --popover-foreground: 210 20% 98%;
+
+    --primary: 263 85% 60%;
+    --primary-foreground: 210 20% 98%;
+
+    --secondary: 215 27.9% 16.9%;
+    --secondary-foreground: 210 20% 98%;
+
+    --muted: 215 27.9% 16.9%;
+    --muted-foreground: 217.9 10.6% 64.9%;
+
+    --accent: 263 85% 60%;
+    --accent-foreground: 210 20% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 20% 98%;
+
+    --success: 142 69% 58%;
+    --success-foreground: 210 20% 98%;
+
+    --border: 215 27.9% 16.9%;
+    --input: 215 27.9% 16.9%;
+    --ring: 263 75% 75%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground min-h-screen;
+    background-image: radial-gradient(
+        at 100% 100%,
+        hsla(var(--primary) / 0.05) 0px,
+        transparent 60%
+      ),
+      radial-gradient(
+        at 0% 0%,
+        hsla(var(--primary) / 0.03) 0px,
+        transparent 50%
+      );
+  }
+}
+
+/* Custom card styles */
+.glass-card {
+  @apply bg-background/40 backdrop-blur-md border border-border/50 shadow-lg;
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    130deg,
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 255, 255, 0) 40%
+  );
+  z-index: 0;
+}
+
+.gradient-card {
+  @apply relative overflow-hidden bg-white dark:bg-slate-900 shadow-lg hover:shadow-xl transition-all duration-300;
+  box-shadow: 0 4px 20px -5px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.gradient-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    130deg,
+    hsla(var(--primary) / 0.15),
+    transparent 70%
+  );
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.gradient-card::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(
+    90deg,
+    hsla(var(--primary)),
+    hsla(calc(var(--primary) + 40), 70%, 60%)
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.gradient-card:hover::after {
+  opacity: 1;
+}
+
+.hex-bg {
+  background-color: rgba(255, 255, 255, 0.05);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='49' viewBox='0 0 28 49'%3E%3Cg fill-rule='evenodd'%3E%3Cg id='hexagons' fill='%239C92AC' fill-opacity='0.03' fill-rule='nonzero'%3E%3Cpath d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81v-2.3zM15 0v7.5L27.99 15H28v-2.31h-.01L17 6.35V0h-2zm0 49v-8l12.99-7.5H28v2.31h-.01L17 42.15V49h-2z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.animate-in {
+  animation: animateIn 0.5s cubic-bezier(0.17, 0.67, 0.83, 0.67) forwards;
+}
+
+@keyframes animateIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* Custom Toast Styling */
+.custom-toast-wrapper {
+  display: flex;
+  align-items: flex-start;
+  background-color: hsl(var(--card));
+  color: hsl(var(--card-foreground));
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius);
+  padding: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  width: 100%;
+  max-width: 420px;
+  position: relative;
+  animation: slideIn 0.3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.custom-toast-icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  margin-right: 14px;
+  flex-shrink: 0;
+}
+
+.custom-toast-icon-container.price {
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.15),
+    rgba(37, 99, 235, 0.25)
+  );
+}
+
+.custom-toast-icon-container.weather {
+  background: linear-gradient(
+    135deg,
+    rgba(245, 158, 11, 0.15),
+    rgba(217, 119, 6, 0.25)
+  );
+}
+
+.custom-toast-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.custom-toast-icon-container.price .custom-toast-icon {
+  color: #3b82f6;
+}
+
+.custom-toast-icon-container.weather .custom-toast-icon {
+  color: #f59e0b;
+}
+
+.custom-toast-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.custom-toast-title {
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.custom-toast-message {
+  font-size: 13px;
+  color: hsl(var(--muted-foreground));
+  line-height: 1.4;
+}
+
+.custom-toast-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: transparent;
+  border: none;
+  color: hsl(var(--muted-foreground));
+  opacity: 0.7;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.custom-toast-close:hover {
+  opacity: 1;
+  background-color: hsl(var(--secondary));
+}
+
+/* Custom styled tabs */
+.custom-tabs {
+  --tab-radius: 12px;
+  --tab-height: 3.5rem;
+  position: relative;
+}
+
+.custom-tabs-list {
+  @apply flex rounded-xl p-1 bg-muted/40;
+  position: relative;
+  backdrop-filter: blur(8px);
+  z-index: 1;
+  height: var(--tab-height);
+}
+
+.custom-tab {
+  @apply flex-1 flex items-center justify-center gap-2 px-3 py-1.5 text-sm font-medium rounded-lg transition-all duration-200;
+  position: relative;
+  height: calc(var(--tab-height) - 0.5rem);
+  z-index: 2;
+  color: hsl(var(--foreground));
+}
+
+.custom-tab[data-state="active"] {
+  @apply text-primary dark:text-primary;
+}
+
+.custom-tab-indicator {
+  position: absolute;
+  z-index: 1;
+  height: calc(var(--tab-height) - 0.5rem);
+  border-radius: var(--tab-radius);
+  background: linear-gradient(
+    135deg,
+    hsl(var(--primary)),
+    hsl(calc(var(--primary) - 20), 70%, 45%)
+  );
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: 0 4px 12px -2px hsla(var(--primary) / 0.3);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--secondary) / 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--primary) / 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--primary) / 0.5);
+}
+
+/* Data section styles */
+.data-section {
+  position: relative;
+}
+
+.data-section-header {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.data-section-header::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.75rem;
+  width: 3rem;
+  height: 3px;
+  background: linear-gradient(90deg, hsl(var(--primary)), transparent);
+  border-radius: 1px;
+}
+
+/* Sonner overrides */
+[data-sonner-toaster][data-theme="system"] {
+  --normal-bg: transparent;
+  --normal-border: transparent;
+  --normal-text: transparent;
+  --normal-description: transparent;
+}
+
+[data-sonner-toaster] [data-sonner-toast] {
+  padding: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
